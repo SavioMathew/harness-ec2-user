@@ -1,0 +1,42 @@
+pipeline:
+  name: EC2-User
+  identifier: EC2User
+  projectIdentifier: EC2User
+  orgIdentifier: default
+  tags: {}
+  stages:
+    - stage:
+        name: EC2-user
+        identifier: EC2user
+        description: ""
+        type: Custom
+        spec:
+          execution:
+            steps:
+              - step:
+                  type: TerraformApply
+                  name: TerraformApply_1
+                  identifier: TerraformApply_1
+                  spec:
+                    provisionerIdentifier: EC2_Provider
+                    configuration:
+                      type: Inline
+                      spec:
+                        configFiles:
+                          store:
+                            spec:
+                              connectorRef: EC2Usergitrepo
+                              gitFetchType: Branch
+                              branch: main
+                              folderPath: .
+                            type: Github
+                          moduleSource:
+                            useConnectorCredentials: false
+                        providerCredential:
+                          type: Aws
+                          spec:
+                            connectorRef: AWSconnector
+                            region: us-west-2
+                            roleArn: ""
+                  timeout: 10m
+        tags: {}
