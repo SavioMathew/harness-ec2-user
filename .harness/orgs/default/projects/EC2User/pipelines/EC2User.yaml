@@ -38,5 +38,9 @@ pipeline:
                             connectorRef: AWSconnector
                             region: us-west-2
                             roleArn: ""
+                        environmentVariables:
+                          - name: HARNESS_TERRAFORM_BINARY_PATH
+                            value: /tmp/terraform
+                            type: String
                   timeout: 10m
         tags: {}
